@@ -170,7 +170,8 @@ set number
 " <C-O> is more convinient
 inoremap <C-O> <C-X><C-O>
 " open preview window
-set completeopt+=preview
+" NOTICE: preview window is a little buggy
+" set completeopt+=preview
 "  menu will come up even if there's only one match
 set completeopt+=menuone
 " don't select the first match
