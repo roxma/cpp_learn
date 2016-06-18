@@ -14,6 +14,7 @@ function _roxma_vim_env_init()
 		echo 'unalias vim 2>/dev/null'  1>&3 
 		alias vim="$(pwd)/${localVimDir}/bin/vim -u \"$customVimrcFile\" -p"
 		alias vim  1>&3
+		alias vim
 
 		# separate process
 		{

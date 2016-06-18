@@ -13,6 +13,7 @@ function _roxma_weechat_init()
 		echo 'unalias weechat 2>/dev/null' 1>&3
 		alias weechat="$(which weechat) -d $(readlink -f $(dirname ${BASH_SOURCE[0]})/.local_software/weechat_data)"
 		alias weechat 1>&3
+		alias weechat
 	fi
 }
 

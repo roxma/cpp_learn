@@ -21,6 +21,7 @@ function _roxma_tmux_init() {
 		echo 'unalias tmux 2>/dev/null' 1>&3
 		alias tmux='tmux -f '"$(readlink -f .local_software/tmux/etc/tmux.conf)"
 		alias tmux 1>&3
+		alias tmux
 
 	fi
 }
