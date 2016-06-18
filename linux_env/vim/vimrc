@@ -61,10 +61,6 @@ set encoding=utf-8 fileencodings=ucs-bom,utf-8,gbk,gb18030,latin1 termencoding=u
 "
 
 " file tab switching 
-nnoremap te  :tabedit 
-nnoremap ts  :tab split<CR>
-nnoremap tn  :tabn<CR>
-nnoremap tp  :tabN<CR>
 nnoremap <S-l> :tabn<CR>
 nnoremap <S-h> :tabN<CR>
 
