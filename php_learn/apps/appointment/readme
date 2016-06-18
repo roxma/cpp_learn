@@ -1,0 +1,16 @@
+# 配置
+
+## crontab 配置
+
+每分钟执行一次
+
+``` shell
+* * * * *  /root/job/php_learn/send_validate_mail.sh
+
+``` shell
+#!/bin/sh
+for((i=1;i<=60;i++))
+do
+        sleep 1
+         cd /data/php_learn/apps/appointment/ && /usr/bin/php send_validate_mail.php >  /dev/null 2>&1
+done

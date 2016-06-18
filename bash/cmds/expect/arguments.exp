@@ -1,0 +1,4 @@
+#!/bin/env expect
+
+
+send_user "$argv0 [lrange $argv 0 2]\n"

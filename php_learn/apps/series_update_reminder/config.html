@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title>追剧提醒小工具 by roxma@qq.com</title>
+	
+	 <!-- jQuery -->
+	<script src="../libs_js/jquery-2.1.1.js" ></script>
+	
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="../libs_jscss/bootstrap-3.2.0-dist/css/bootstrap.css">
+	<script src="../libs_jscss/bootstrap-3.2.0-dist/js/bootstrap.js" ></script>
+	
+	<!-- artTemplate 模板引擎 -->
+	<script src="../libs_js/artTemplate/template.js"></script>
+
+	<!-- require login -->
+	<script src="../common/login_require.js"></script>
+
+</head>
+
+<body>
+
+	<h3 style="text-align:center;"><a target="_blank" href="https://github.com/roxma/cpp_learn/tree/master/php_learn/apps/series_update_reminder">追剧提醒小工具</a></h3>
+
+	<div style="margin-left:5%;margin-right:5%;" class="container-fluid">
+		<form class="form form-inline" role="form">
+
+			<div class="form-group" style="margin-top:8px;margin-right:15px;">
+				<label>URL</label>
+				<input name="url"  type="text" class="form-control" style="width:600px;" >
+			</div>
+
+			<div class="form-group" style="margin-top:8px;margin-right:15px;">
+				<label>Pattern</label>
+				<input name="pattern"  type="text" class="form-control" >
+			</div>
+
+			<div class="form-group" style="margin-top:8px;margin-right:15px;">
+				<label>Type</label>
+				<select name="pattern_type" class="form-control" >
+					<option value="text" selected>href="*pattern*"</option>
+					<!-- <option value="wildcard">wildcard</option>
+					<option value="preg">preg</option> -->
+				</select>
+			</div>
+
+			<div class="form-group" style="margin-top:8px;margin-right:15px;">
+				<input name="add"  class="btn btn-primary" type="button" class="form-control" value="添加" >
+			</div>
+
+		</form>
+	</div>
+
+	<iframe width="90%" style="height:500px;margin-top:15px;margin-bottom:15px;margin-left:auto;margin-right:auto;display:block;"></iframe>
+
+	<div id="rules_table_container">
+<script id="tpl_rules" type="text/html">
+	<table class="table table-bordered" style="width:90%;margin-left:auto;margin-right:auto;">
+		<thead>
+			<tr>
+				<th></th>
+				<th>URL</th>
+				<th>Pattern</th>
+				<th>Type</th>
+				<th>Last Update</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% for(var i=0; i<data.length; ++i){ %>
+				<tr>
+				<td><input type="radio" name="rule" data-i_rule_id="<%=data[i].i_rule_id%>"></td>
+				<td><%=data[i].s_url%></td>
+				<td><%=data[i].s_pattern%></td>
+				<td><%=data[i].s_pattern_type%></td>
+				<td><%=data[i].d_last_update%></td>
+				</tr>
+			<% } %>
+			<tr>
+				<td colspan="5">
+				<input name="delete" onclick="OnDeleteRule();" class="btn btn-default" type="button" value="删除" >
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</script>
+	</div>
+
+</body>
+
+<script>
+
+function ShowRules(){
+	jQuery.ajax({
+		  url: "cgi_query_rules.php"
+		, data:{ }
+		, success:function(response){
+			if(!response.result){
+				return ;
+			}
+			var html = template('tpl_rules', response);
+			document.getElementById('rules_table_container').innerHTML = html;
+		}
+	});
+}
+jQuery(ShowRules);
+
+function OnDeleteRule(){
+	var selected = $("#rules_table_container input[name='rule']:checked");
+	if(selected.length==0){
+		alert("请选择一项");
+		return;
+	}
+	var ruleId = selected.attr("data-i_rule_id");
+	jQuery.ajax({
+		  url: "cgi_delete_rule.php"
+		, data: { rule_id: ruleId}
+		, success: function(response){
+			if(!response.result){
+				alert("操作失败");
+				return;
+			}
+			alert("操作成功");
+			ShowRules();
+		}
+	});
+}
+
+function MakePatterFromText (str){
+	return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
+function OnPatternInput(){
+
+	var frame = jQuery("iframe");
+	var doc = frame[0].contentWindow.document;
+
+	jQuery("a",doc).css("background-color","");
+
+	if(jQuery("form [name=pattern]").val()==""){
+		return;
+	}
+
+	var pattern = jQuery("form [name=pattern]").val();
+	var patternType = jQuery("form [name=pattern_type]").val();
+	var patternRe = null;
+	if(patternType=="text"){
+		pattern = MakePatterFromText(pattern);
+		patternRe = new RegExp("href=\"[^\"]*" + pattern + "[^\"]*\"");
+	}
+
+	var aTag = jQuery("a",doc).filter(function(){
+		var outerHtml = jQuery("<div></div>").append(jQuery(this).clone()).html();
+		
+		return outerHtml.match(patternRe) != null;
+	});
+	aTag.css("background-color","yellow");
+}
+
+jQuery(function(){
+
+	jQuery("form [name=url]").change(function(){
+		if(jQuery(this).val()!=""){
+			// jQuery.ajax({
+			// 	  url: "doc_load.php?url=" + jQuery(this).val()
+			// 	, dataType: "text"
+			// 	, success:function(text){
+			// 		var frame = jQuery("iframe");
+			// 		var doc = frame[0].contentWindow.document;
+			// 		doc.write(text);
+			// 	}
+			// });
+			jQuery("iframe").attr("src","doc_load.php?url=" + jQuery(this).val());
+		}
+	});
+
+	jQuery("form [name=pattern]").on("input",OnPatternInput);
+
+	jQuery("form [name=add]").click(function(){
+		
+		var url = jQuery("form [name=url]").val();
+		var pattern = jQuery("form [name=pattern]").val();
+
+		var patternType = jQuery("form [name=pattern_type]").val();
+		var patternRe = null;
+		if(patternType=="text"){
+			pattern = MakePatterFromText(pattern);
+			patternRe = new RegExp("href=\"[^\"]*" + pattern + "[^\"]*\"");
+			pattern = patternRe.toString();
+		}
+
+		jQuery.ajax({
+			  url: "cgi_add_rule.php"
+			, data: {
+				  url: url
+				, pattern: pattern
+			}
+			, success: function(response){
+				if(!response.result){
+					alert("操作失败: " + response.error_message);
+					return;
+				}
+				alert("操作成功");
+				ShowRules();
+			}
+		});
+	});
+
+});
+</script>
+
+</html>

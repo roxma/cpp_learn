@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title>报名/预约</title>
+	
+	 <!-- jQuery -->
+	<script src="../libs_js/jquery-2.1.1.js" ></script>
+	
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="../libs_jscss/bootstrap-3.2.0-dist/css/bootstrap.css">
+	<script src="../libs_jscss/bootstrap-3.2.0-dist/js/bootstrap.js" ></script>
+	
+	<!-- artTemplate 模板引擎 -->
+	<script src="../libs_js/artTemplate/template.js"></script>
+
+</head>
+
+<body>
+
+<!-- Modal -->
+<div class="modal fade" id="modal_create_sub_issue" tabindex="-1" role="dialog"
+	aria-labelledby="label_modal_create_sub_issue"
+	aria-hidden="true"
+	data-backdrop="static"
+	>
+	
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+					
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">x</button> <!-- 关闭按钮 -->
+				
+				<h4 class="modal-title" id="label_modal_create_sub_issue">
+					创建新预约项</h4>
+			</div>
+			
+			<div class="modal-body">
+
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">标题</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" name="name"
+								placeholder="">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">描述</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" name="desc"
+								placeholder="">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">名额数</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" name="max"
+								placeholder="">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">填写字段</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" name="fields"
+								placeholder="预约者需填写的字段，多个字段用空格隔开">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="button"  onclick="CreateNewSubSubmit();" class="btn btn-default">确定</button>
+						</div>
+					</div>
+				</form>
+				
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+	<div id="issue_detail_container"></div>
+	<script id="issue_detail" type="text/html">
+		<%
+			var issue_info = data.issue_info;
+			var sub_issues = data.sub_issues;
+			var requests = data.requests;
+		%>
+
+		<h3><%=issue_info["s_name"]%> <button class="btn btn-default" onclick="CreateNewSub();">创建新预约项</button></h3>
+		<p><%=issue_info["s_desc"]%></p>
+
+		<ul>
+		<% for(var i=0; i<sub_issues.length; ++i){ 
+			var sub_issue = sub_issues[i];
+			var fields = JSON.parse(sub_issue.s_field_list_json);
+			var subId = sub_issue.sub_issue_id;
+		%>
+			<li>
+				<h4><%=sub_issue.s_name%> <button class="btn btn-default" onclick="OnAppointmentRequest(<%=i%>);">我要报名/预约</button> </h4>
+				<p><%=sub_issue.s_desc%></p>
+				<p>预约人数：<%=sub_issue.i_cur_request%>/<%=sub_issue.i_max_request%></p>
+				
+				<!-- 预约列表 -->
+				<table class="table-bordered table-condensed">
+					<thead>
+						<td>用户</td>
+						<td>时间</td>
+						<% for(var fieldsIndex=0; fieldsIndex<fields.length; ++fieldsIndex){
+						%>
+							<td><%=fields[fieldsIndex]%></td>
+						<% } %>
+					<thead>
+					<tbody>
+						<% for(var requestIndex=0; requestIndex<requests.length; ++requestIndex){
+							if(requests[requestIndex].sub_issue_id!=subId) continue;
+							if(requests[requestIndex].i_validated!=1) continue;
+							var request = requests[requestIndex];
+						%>
+							<tr>
+							<td><%=request.s_mail%></td>
+							<td><%=request.d_create_time%></td>
+							<% for(var fieldsIndex=0; fieldsIndex<fields.length; ++fieldsIndex){
+								var requestFields = JSON.parse(request.s_fields_json);
+							%>
+								<td><%=requestFields[fields[fieldsIndex]]%></td>
+							<% } %>
+							</tr>
+						<% } %>
+					</tbody>
+				<table>
+				
+			</li>
+		<% } %>
+		</ul>
+
+	</script>
+
+<!-- Modal -->
+<div class="modal fade" id="modal_appointment_request" tabindex="-1" role="dialog"
+	aria-labelledby="label_modal_appointment_request"
+	aria-hidden="true"
+	data-backdrop="static"
+	>
+	
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+					
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">x</button> <!-- 关闭按钮 -->
+				
+				<h4 class="modal-title" id="label_modal_appointment_request">
+					预约申请</h4>
+			</div>
+			
+			<div class="modal-body">
+
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">你的邮箱</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" name="mail"
+								placeholder="">
+						</div>
+					</div>
+					
+					<div id="modal_appointment_request_fields_container">
+					<script id="modal_appointment_request_fields" type="text/html">
+						<%
+							var fields = JSON.parse(sub_issue.s_field_list_json);
+						%>
+						<input type="hidden" name="sub_issue_id" value="<%=sub_issue.sub_issue_id%>" >
+						<% for(var fieldsIndex=0; fieldsIndex<fields.length; ++fieldsIndex){
+						%>
+							<div class="form-group">
+								<label class="col-sm-2 control-label"><%=fields[fieldsIndex]%></label>
+								<div class="col-sm-8">
+								<input type="text" class="form-control"
+									placeholder="">
+								</div>
+							</div>
+						<% } %>					
+					</script>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="button"  onclick="OnAppointmentRequestSubmit();" class="btn btn-default">确定</button>
+						</div>
+					</div>
+				</form>
+				
+			</div>
+			
+		</div>
+	</div>
+</div>
+	
+	<br /><br /><br />
+	<p>发现 BUG 请反馈 roxma@qq.com，谢谢</p>
+</body>
+
+<script>
+var issueId = (function(name) {
+	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	results = regex.exec(location.search);
+	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+})("issue_id");
+
+var getIsueResponse = {};
+
+jQuery(function(){
+	
+	jQuery.ajax({
+		  url: "cgi_get_issue.php"
+		, data: {issue_id:issueId}
+		, error: function(){
+			alert("可能是网络原因，页面加载失败");
+		}
+		, success: function(response){
+			if(response.error_code!=0){
+				if(response.error_message==""){
+					alert("系统异常，请联系管理员");
+					return;
+				}else{
+					alert("操作失败：" + response.error_message);
+					return;
+				}
+			}
+			
+			getIsueResponse = response;
+			response["JSON"] = JSON;
+			var html = template.render('issue_detail', response);
+			jQuery("#issue_detail_container").html(html);
+		}
+	});
+});
+
+function CreateNewSub(){
+	jQuery("#modal_create_sub_issue").modal("show");
+}
+function CreateNewSubSubmit(){
+	var modal = jQuery("#modal_create_sub_issue");
+
+	var fields = [];
+	var tmp = modal.find("input[name=fields]").val().split(" ");
+	for(var i=0; i< tmp.length; ++i){
+		if(tmp[i]===""){
+			continue;
+		}
+		fields.push(tmp[i]);
+	}
+	var data = {
+			  name: modal.find("input[name=name]").val()
+			, desc: modal.find("input[name=desc]").val()
+			, max: modal.find("input[name=max]").val()
+			, fields: JSON.stringify(fields)
+			, issue_id: issueId
+	};
+	
+	jQuery.ajax({
+		  url: "cgi_create_sub_issue.php"
+		, data: data 
+		, error: function(){
+			alert("可能是网络原因，操作失败");
+		}
+		, success: function(response){
+			if(response.error_code!=0){
+				if(response.error_message==""){
+					alert("系统异常，请联系管理员");
+					return;
+				}else{
+					alert("操作失败：" + response.error_message);
+					return;
+				}
+			}
+			
+			window.location.reload();
+		}
+	});
+	
+	return;
+}
+
+function OnAppointmentRequest(subIndex){
+	var data = {
+		  sub_issue: getIsueResponse.data.sub_issues[subIndex]
+		, JSON: JSON
+	};
+	var html = template.render('modal_appointment_request_fields', data);
+	jQuery("#modal_appointment_request_fields_container").html(html);
+	jQuery("#modal_appointment_request").modal("show");
+}
+function OnAppointmentRequestSubmit(){
+	var modal = jQuery("#modal_appointment_request");
+	modal.find("button").button("loading");
+	// to reset: modal.find("button").button("reset");
+
+	var fields = {};
+	modal.find("#modal_appointment_request_fields_container .form-group").each(function(){
+		var group = jQuery(this);
+		fields[group.find("label").text()] = group.find("input").val();
+	});
+	
+	var data = {
+			  issue_id: issueId
+			, sub_issue_id: modal.find("[name=sub_issue_id]").val()
+			, mail: modal.find("[name=mail]").val()
+			, fields: JSON.stringify(fields)
+	};
+	
+	jQuery.ajax({
+		  url: "cgi_appointment_request.php"
+		, data: data 
+		, error: function(){
+			modal.find("button").button("reset");
+			alert("可能是网络原因，操作失败");
+		}
+		, success: function(response){
+			modal.find("button").button("reset");
+			
+			if(response.error_code!=0){
+				if(response.error_message==""){
+					alert("系统异常，请联系管理员");
+					return;
+				}else{
+					alert("操作失败：" + response.error_message);
+					return;
+				}
+			}
+			
+			alert("系统已发送确认邮件，请登录邮箱确认您的操作！");
+
+			window.location.reload();
+		}
+	});
+	
+}
+
+</script>
+
+</html>

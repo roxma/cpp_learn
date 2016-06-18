@@ -1,0 +1,8 @@
+#!/bin/env expect
+
+# set password 
+	send_user "password?\ "
+	expect_user -re "(.*)\n"
+	set password  "$expect_out(0,string)"
+
+send_user "$password"

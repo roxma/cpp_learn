@@ -1,0 +1,60 @@
+# depslib dependency file v1.0
+1385316878 source:z:\git\cpp_learn\rlib_lockfree\codeblocks\main.cpp
+	<iostream>
+
+1409421032 source:z:\git\cpp_learn\rlib_lockfree\test\main.cpp
+
+1409419872 z:\git\cpp_learn\rlib_lockfree\inc\rlib\lockfree\cyclebufferswsr.h
+
+1409419382 z:\git\cpp_learn\rlib_lockfree\inc\rlib\lockfree\_lightweightmutex.h
+
+1409422497 source:z:\git\cpp_learn\rlib_lockfree\test\cyclebufferswsr.cpp
+
+1409424413 source:z:\git\cpp_learn\rlib_lockfree\test\lightweightmutextest.cpp
+
+1409424952 source:r:\git\cpp_learn\rlib_lockfree\test\cyclebufferswsr.cpp
+	<thread>
+	<mutex>
+	<string>
+	<iostream>
+	<chrono>
+	<sstream>
+	"rlib/lockfree/CycleBufferSwsr.h"
+	"rlib/lockfree/_LightWeightMutex.h"
+
+1409424870 r:\git\cpp_learn\rlib_lockfree\inc\rlib\lockfree\cyclebufferswsr.h
+	<atomic>
+	<stddef.h>
+	<memory>
+	<type_traits>
+	<algorithm>
+	<stdexcept>
+	"rlib/lockfree/_LightWeightMutex.h"
+
+1409424698 r:\git\cpp_learn\rlib_lockfree\inc\rlib\lockfree\_lightweightmutex.h
+	<atomic>
+	<thread>
+	<chrono>
+	<condition_variable>
+
+1409424413 source:r:\git\cpp_learn\rlib_lockfree\test\lightweightmutextest.cpp
+	<mutex>
+	<chrono>
+	<iostream>
+	<windows.h>
+	"rlib/lockfree/_LightWeightMutex.h"
+
+1409079241 source:r:\git\cpp_learn\rlib_lockfree\test\presizedextensiblebuffertest.cpp
+	<stddef.h>
+	<streambuf>
+	<vector>
+	<algorithm>
+	<sstream>
+	<iostream>
+	<atomic>
+	<thread>
+	<chrono>
+	<condition_variable>
+	<thread>
+	<atomic>
+

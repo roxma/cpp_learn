@@ -1,0 +1,182 @@
+
+set nocompatible        	" Use Vim defaults (much better!)
+set bs=indent,eol,start 	" allow backspacing over everything in insert mode
+set viminfo='100,\"50    	" read/write a .viminfo file, don't store more
+		                	" than 50 lines of registers
+set history=1000          	" keep 1000 lines of command line history
+set ruler               	" show the cursor position all the time
+if has('nvim')  
+    set shada='100"50
+endif
+
+
+" When editing a file, always jump to the last cursor position
+autocmd BufReadPost *
+\ if line("'\"") > 0 && line ("'\"") <= line("$") |
+\   exe "normal! g'\"" |
+\ endif
+
+" don't write swapfile on most commonly used directories for NFS mounts or USB sticks
+autocmd BufNewFile,BufReadPre /media/*,/mnt/* set directory=~/tmp,/var/tmp,/tmp
+
+" " start with spec file template
+" autocmd BufNewFile *.spec 0r /usr/share/vim/vimfiles/template.spec
+
+
+syntax on
+filetype plugin on
+
+
+if &term=="xterm"
+	set t_Co=8
+	set t_Sb=[4%dm
+	set t_Sf=[3%dm
+endif
+if &term=="xterm-256color"
+    set t_Co=256
+endif
+
+" Don't wake up system with blinking cursor:
+" http://www.linuxpowertop.org/known.php
+let &guicursor = &guicursor . ",a:blinkon0"
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" the mapping requires the above code to executed first
+"
+
+" redefine leader key
+let mapleader = " "
+
+" No beeps
+set noerrorbells
+
+" encoding
+set encoding=utf-8 fileencodings=ucs-bom,utf-8,gbk,gb18030,latin1 termencoding=utf-8
+
+
+"""
+" tab window
+" {
+"
+
+" file tab switching 
+nnoremap te  :tabedit 
+nnoremap ts  :tab split<CR>
+nnoremap tn  :tabn<CR>
+nnoremap tp  :tabN<CR>
+nnoremap <S-l> :tabn<CR>
+nnoremap <S-h> :tabN<CR>
+
+" file tab highlighting, deprecated, use airline plugin with 'set t_Co=256' now
+" hi TabLineSel      term=bold cterm=bold
+" hi TabLine         term=underline cterm=underline ctermfg=0 ctermbg=7
+" hi TabLineFill     term=reverse cterm=reverse
+
+"
+" }
+""""
+
+
+"""
+" searching
+" {
+
+
+" visual mode asterisk search
+vmap <Leader>* <Plug>(asterisk-*)
+
+"   use ':' so that we could found the previous search string in history command
+"   '\c' case insensitive
+nnoremap /  /\c\v
+nnoremap ?  ?\c\v
+" map /   <Plug>(incsearch-forward)\c\v
+" map ?   <Plug>(incsearch-backward)\c\v
+
+" clean last pattern to avoid highlighting
+" :help last-pattern
+nnoremap <ESC><ESC> :let @/ = ""<CR>
+" nvim exit terminal mode
+if has('nvim')  
+    tmap <ESC><ESC> <C-\><c-n>
+endif
+
+" more handy way of switching between split windows
+nnoremap <C-h>  <C-w>h
+nnoremap <C-j>  <C-w>j
+nnoremap <C-k>  <C-w>k
+nnoremap <C-l>  <C-w>l
+
+" no mouse interaction
+set mouse=
+
+" enable incremental search 
+set incsearch
+
+" highlighting
+set hlsearch
+hi Search guibg=LightBlue ctermbg=LightBlue
+hi MatchParen ctermbg=lightred guibg=lightred
+autocmd VimEnter * DoMatchParen
+
+"
+" }
+""""
+
+"""
+" moving
+" {
+
+nnoremap <expr> <C-u> winheight(0)/3 . '<C-y>'
+nnoremap <expr> <C-d> winheight(0)/3 . '<C-e>'
+
+"
+" }
+""""
+
+"""
+" editing
+" {
+
+" auto wraping in text files
+autocmd FileType txt,md setlocal tw=79
+
+" indentation
+set tabstop=4 | set softtabstop=4 | set shiftwidth=4 | set noexpandtab
+" cpp indentation, use google style
+autocmd FileType cpp,c,cxx,h,hpp setlocal tabstop=2| set softtabstop=2| set shiftwidth=2 | set expandtab
+
+" Tagbar
+autocmd FileType cpp,c,cxx,h,hpp,py,php,js,htm,html TagbarOpen
+
+" folding
+set foldenable
+set foldmethod=syntax
+set foldlevel=100
+
+
+" don't split a long line for display
+set nowrap
+
+" line number
+set relativenumber
+set number
+
+
+" }
+""""
+
+" ommi complete
+" <C-O> is more convinient
+inoremap <C-O> <C-X><C-O>
+" open preview window
+set completeopt+=preview
+"  menu will come up even if there's only one match
+set completeopt+=menuone
+" don't select the first match
+set completeopt+=longest
+set splitbelow
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+autocmd WinLeave * if pumvisible() == 0|pclose|endif
+
+

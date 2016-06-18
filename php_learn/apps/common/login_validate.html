@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title>登录验证</title>
+	
+	<!-- jQuery -->
+	<script src="../libs_js/jquery-2.1.1.js" ></script>
+	
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="../libs_jscss/bootstrap-3.2.0-dist/css/bootstrap.css">
+	<script src="../libs_jscss/bootstrap-3.2.0-dist/js/bootstrap.js" ></script>
+	
+	<!-- artTemplate 模板引擎 -->
+	<script src="../libs_js/artTemplate/template.js"></script>
+	
+</head>
+
+<body></body>
+<script>
+
+var getParam = function(name) {
+	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	results = regex.exec(location.search);
+	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+};
+
+var validateData = {
+		  mail : getParam("mail")
+		, validate_key: getParam("validate_key")
+};
+
+jQuery.ajax({
+	  url: "login_validate.php"
+	, data: validateData
+	, async:false
+	, error: function(){
+		alert("验证失败");
+	}
+	, success: function(response){
+		if(response.error_code!=0){
+			if(response.error_message==""){
+				alert("系统异常，请联系管理员");
+				return;
+			}else{
+				alert("验证失败：" + response.error_message);
+				return;
+			}
+		}
+		alert("验证成功");
+		window.close();
+		// window.location=getParam("return_page");
+	}
+});
+
+</script>
+
+</html>

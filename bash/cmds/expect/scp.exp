@@ -1,0 +1,15 @@
+#!/bin/env expect
+
+# set password 
+
+set timeout 10
+
+spawn scp scp.exp roxma@localhost:~/
+expect {
+	"*yes/no" { send "yes\r" }
+	"*password" {
+		send "$password\r"
+		exp_continue
+	}
+}
+

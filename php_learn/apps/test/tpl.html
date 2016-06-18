@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title>更新检测配置</title>
+	
+	 <!-- jQuery -->
+	<script src="../libs_js/jquery-2.1.1.js" ></script>
+	
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="../libs_jscss/bootstrap-3.2.0-dist/css/bootstrap.css">
+	<script src="../libs_jscss/bootstrap-3.2.0-dist/js/bootstrap.js" ></script>
+	
+	<!-- artTemplate 模板引擎 -->
+	<script src="../libs_js/artTemplate/template.js"></script>
+
+	<!-- require login -->
+	<script src="../common/login_require.js"></script>
+
+</head>
+
+<body>
+
+	<h3>更新检测配置</h3>
+
+	<div class="container-fluid">
+		<form class="form form-inline" role="form">
+
+			<div class="form-group">
+				<label>URL</label>
+				<input name="url"  type="text" class="form-control" >
+			</div>
+
+			<div class="form-group">
+				<label>Pattern</label>
+				<input name="pattern"  type="text" class="form-control" >
+			</div>
+
+			<div class="form-group">
+				<label>Pattern Type</label>
+				<select name="pattern_type" class="form-control" >
+					<option value="preg">text</option>
+					<option value="wildcard">wildcard</option>
+					<option value="preg">preg</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<input name="submit"  class="btn btn-primary" type="button" class="form-control" value="添加" >
+			</div>
+
+		</form>
+	</div>
+
+	<iframe width="90%" style="margin-top:15px;margin-bottom:15px;margin-left:auto;margin-right:auto;display:block;"></iframe>
+	
+</body>
+
+<script>
+	
+</script>
+
+</html>

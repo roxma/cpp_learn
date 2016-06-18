@@ -1,0 +1,8 @@
+
+include foo.mk
+include ../msg.mk
+
+all:
+	echo $(FOO)
+	echo $(MSG)
+

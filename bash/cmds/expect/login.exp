@@ -1,0 +1,32 @@
+#!/bin/env expect
+
+set user roxma
+set host localhost
+set port 22
+# set password 
+
+
+set timeout 10
+
+spawn ssh $user@$host -p$port
+set password_sended 0
+expect {
+	"*yes/no" { send "yes\r" }
+	"*password" {
+		send "$password\r" ;
+		set password_sended 1
+	}
+}
+
+if {$password_sended==0} {
+	expect {
+		"*password" {
+			send "$password\r" ;
+			set password_sended 1
+		}
+	}
+}
+
+interact
+
+
