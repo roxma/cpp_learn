@@ -19,7 +19,7 @@ function roxma_neovim_install() {
         fi
         prefix=$(readlink -f ../neovim)
         rm -rf neovim/build
-        cd neovim && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=${prefix}" &&  make install
+        cd neovim && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=${prefix}" CMAKE_BUILD_TYPE=Release &&  make install
         # make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=$HOME/neovim"
     } | tee
 
