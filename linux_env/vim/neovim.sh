@@ -1,48 +1,9 @@
 
-function roxma_neovim_install() {
-    # make a subprocess
-    {
-        cd "$(dirname ${BASH_SOURCE[0]})"/.local_software && mkdir -p tmp && cd tmp 
-        if [[ $? != 0 ]]
-        then
-            echo "make tmp dir failed"
-            return 1
-        fi
-        if [[ ! -d neovim ]]
-        then
-            git clone https://github.com/neovim/neovim
-        fi
-        if [[ $? != 0 ]]
-        then
-            echo "install failed."
-            return 1
-        fi
-        prefix=$(readlink -f ../neovim)
-        rm -rf neovim/build
-        cd neovim && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=${prefix}" CMAKE_BUILD_TYPE=Release &&  make install
-        # make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=$HOME/neovim"
-    } | tee
-
-    # export path if neovim installed
-    if [[ -f $(dirname ${BASH_SOURCE[0]})/.local_software/neovim/bin/nvim ]]
-    then
-        echo export PATH="$(readlink -f $(dirname ${BASH_SOURCE[0]}))/.local_software/neovim/bin":$PATH
-        export PATH="$(readlink -f $(dirname ${BASH_SOURCE[0]}))/.local_software/neovim/bin":$PATH
-    fi
-
-}
-
-# setup 256 color for vim
-if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-    export TERM='xterm-256color'
-else
-    export TERM='xterm-color'
-fi
-
 ##
 # This script is used to setup the user's nvim environment, including:
 #
 
+function _roxma_nvim_init()
 {
     roxma_nvim_rcfile_generate
 	customVimrcFile=$(roxma_nvim_rcfile_name)
@@ -75,8 +36,6 @@ fi
 		# If plugins has changed
 		if [[ "$(roxma_vim_plugins_tgz_encoded_content_md5sum)" != "$(cat ${localVimDir}/plugins_md5sum.txt 2>/dev/null )" ]]
 		then
-
-			echo "updating vim plugins..." 1>&2
 
 			# clean old plugins
 			rm -rf ${localVimDir}/plugins_md5sum.txt ${localVimDir}/plugins ${localVimDir}/plugins.tar.gz ${localVimDir}/bundle ${localVimDir}/vim-pathogen-master
@@ -112,20 +71,48 @@ fi
 
 	fi
 
-	cd - 1>&2 # go back
+	# export path if neovim installed
+	if [[ -f $(dirname ${BASH_SOURCE[0]})/.local_software/neovim/bin/nvim ]]
+	then
+		echo 'export PATH="'$(readlink -f $(dirname ${BASH_SOURCE[0]}))'/.local_software/neovim/bin":$PATH' 1>&3
+		echo 'unalias nvim 2>/dev/null' 1>&3
+		alias nvim="$(readlink -f $(dirname ${BASH_SOURCE[0]}))/.local_software/neovim/bin/nvim -u \"$(roxma_nvim_rcfile_name)\" -p"
+		alias nvim 1>&3
+	fi
 
+}
 
-} | tee
+function roxma_neovim_install() {
+    # make a subprocess
+    {
+        cd "$(dirname ${BASH_SOURCE[0]})"/.local_software && mkdir -p tmp && cd tmp 
+        if [[ $? != 0 ]]
+        then
+            echo "make tmp dir failed"
+            return 1
+        fi
+        if [[ ! -d neovim ]]
+        then
+            git clone https://github.com/neovim/neovim
+        fi
+        if [[ $? != 0 ]]
+        then
+            echo "install failed."
+            return 1
+        fi
+        prefix=$(readlink -f ../neovim)
+        rm -rf neovim/build
+        cd neovim && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=${prefix}" CMAKE_BUILD_TYPE=Release &&  make install
+        # make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=$HOME/neovim"
+    } | tee
+}
 
-# export path if neovim installed
-if [[ -f $(dirname ${BASH_SOURCE[0]})/.local_software/neovim/bin/nvim ]]
-then
-    echo export PATH="$(readlink -f $(dirname ${BASH_SOURCE[0]}))/.local_software/neovim/bin":$PATH
-    export PATH="$(readlink -f $(dirname ${BASH_SOURCE[0]}))/.local_software/neovim/bin":$PATH
-
-    unalias nvim 2>/dev/null
-    alias nvim="$(readlink -f $(dirname ${BASH_SOURCE[0]}))/.local_software/neovim/bin/nvim -u \"$(roxma_nvim_rcfile_name)\" -p"
-    echo alias nvim="$(readlink -f $(dirname ${BASH_SOURCE[0]}))/.local_software/neovim/bin/nvim -u \"$(roxma_nvim_rcfile_name)\" -p"
-
+# setup 256 color for vim
+if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+    export TERM='xterm-256color'
+else
+    export TERM='xterm-color'
 fi
+
+eval "$((_roxma_nvim_init) 3>&1 1>&2 )"
 
