@@ -30,6 +30,8 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'mattn/emmet-vim'
 
 Plug 'junegunn/fzf', { 'do': './install --no-key-bindings --no-completion --no-update-rc' } " only install fzf for vim
+Plug 'junegunn/fzf.vim'
+
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
