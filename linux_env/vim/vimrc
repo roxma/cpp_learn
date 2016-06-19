@@ -102,6 +102,11 @@ nnoremap <C-h>  <C-w>h
 nnoremap <C-j>  <C-w>j
 nnoremap <C-k>  <C-w>k
 nnoremap <C-l>  <C-w>l
+" TODO: <Leader>l <Leader>l, if no window available, switch to the next tab
+nnoremap <Leader>h  <C-w>h
+nnoremap <Leader>j  <C-w>j
+nnoremap <Leader>k  <C-w>k
+nnoremap <Leader>l  <C-w>l
 
 " no mouse interaction
 set mouse=
