@@ -19,3 +19,10 @@ nnoremap <Leader>b  :FZFBuffers<CR>
 nnoremap <C-f>l  	 :FZFLines<CR>
 nnoremap <C-f><C-l>  :FZFLines<CR>
 
+nnoremap <C-f>/  	 :FZFBLines<CR>
+" vim can't recognize
+" nnoremap <C-f><C-/>  :FZFLines<CR>
+
+" commands
+nnoremap <C-f>:  	 :FZFCommands<CR>
+
