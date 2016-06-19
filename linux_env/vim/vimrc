@@ -168,8 +168,9 @@ set number
 """"
 
 " ommi complete
+" NOTICE: <C-O> conflits the key for moving ini insert mode
 " <C-O> is more convinient
-inoremap <C-O> <C-X><C-O>
+" inoremap <C-O> <C-X><C-O> 
 " open preview window
 " NOTICE: preview window is a little buggy
 " set completeopt+=preview
