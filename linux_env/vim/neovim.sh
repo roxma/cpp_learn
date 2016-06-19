@@ -76,6 +76,7 @@ function _roxma_nvim_init()
 	then
 		# echo 'export PATH="'$(readlink -f $(dirname ${BASH_SOURCE[0]}))'/.local_software/neovim/bin":$PATH' 1>&3
 		echo 'unalias nvim 2>/dev/null' 1>&3
+		unalias nvim 2>/dev/null
 		alias nvim="$(readlink -f $(dirname ${BASH_SOURCE[0]}))/.local_software/neovim/bin/nvim -u \"$(roxma_nvim_rcfile_name)\" -p"
 		alias nvim 1>&3
 		alias nvim

@@ -11,6 +11,7 @@ function _roxma_weechat_init()
 		roxma_weechat_scripts_tgz > roxma_scripts.tar.gz
 		tar -zxf roxma_scripts.tar.gz
 		echo 'unalias weechat 2>/dev/null' 1>&3
+		unalias weechat 2>/dev/null
 		alias weechat="$(which weechat) -d $(readlink -f $(dirname ${BASH_SOURCE[0]})/.local_software/weechat_data)"
 		alias weechat 1>&3
 		alias weechat
