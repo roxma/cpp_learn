@@ -27,6 +27,6 @@ nnoremap <C-f>/  	 :FZFBLines<CR>
 nnoremap <C-f>:  	 :FZFCommands<CR>
 
 " fzf ag
-nnoremap <C-f>a  	 :FZFAg<CR>
-nnoremap <C-f><C-a>  :FZFAg<CR>
+nnoremap <C-f>a  	 :FZFAg<Space>
+nnoremap <C-f><C-a>  :FZFAg<Space>
 
