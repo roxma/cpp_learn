@@ -86,9 +86,13 @@ function _roxma_nvim_init()
 
 function roxma_install_neovim() {
 	pip list | grep neovim
-	if [ $? != 0 ] 
+	local ret1=$?
+	pip3 list | grep neovim
+	local ret2=$?
+	if [[ $ret1 != 0 ]]  && [[ $ret2 != 0 ]]
 	then
-		echo "'pip install neovim' should be done before installing neovim"
+		echo "'pip3 install neovim' should be done before installing neovim"
+		echo "If you don't have python33, you may need this gist to install python33: https://gist.github.com/roxma/c4de9e894ef35fe1d1777c946d9094da"
 		echo "do you want to continue? (yes/no)"
 		local yes
 		read yes
