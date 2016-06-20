@@ -18,10 +18,17 @@ function _roxma_tmux_init() {
 		#     roxma_install_tmux_powerline_conf
 		# fi
 
+		tmux=tmux
+		if [ -f .local_software/tmux/bin/tmux ]
+		then
+			tmux=$(readlink -f .local_software/tmux/bin/tmux)
+		fi
+
 		echo 'unalias tmux 2>/dev/null' 1>&3
 		unalias tmux 2>/dev/null
-		alias tmux='tmux -f '"$(readlink -f .local_software/tmux/etc/tmux.conf)"
+		alias tmux="$tmux -f $(readlink -f .local_software/tmux/etc/tmux.conf)"
 		alias tmux 1>&3
+		# show message
 		alias tmux
 
 	fi
