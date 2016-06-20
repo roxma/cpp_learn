@@ -22,6 +22,8 @@ function _roxma_tmux_init() {
 		if [ -f .local_software/tmux/bin/tmux ]
 		then
 			tmux=$(readlink -f .local_software/tmux/bin/tmux)
+			echo 'export PATH='$(dirname $tmux)':$PATH'
+			echo 'export PATH='$(dirname $tmux)':$PATH' 1>&3
 		fi
 
 		echo 'unalias tmux 2>/dev/null' 1>&3
