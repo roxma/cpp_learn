@@ -84,7 +84,7 @@ function _roxma_nvim_init()
 
 }
 
-function roxma_neovim_install() {
+function roxma_install_neovim() {
     # make a subprocess
     {
         cd "$(dirname ${BASH_SOURCE[0]})"/.local_software && mkdir -p tmp && cd tmp 
