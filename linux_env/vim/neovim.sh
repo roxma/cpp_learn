@@ -84,7 +84,7 @@ function _roxma_nvim_init()
 
 }
 
-function roxma_neovim_install() {
+function roxma_install_neovim() {
 	pip list | grep neovim
 	if [ $? != 0 ] 
 	then
