@@ -51,6 +51,8 @@ Plug 'ryanss/vim-hackernews'
 Plug 'edkolev/tmuxline.vim'
 Plug 'dhruvasagar/vim-table-mode'
 
-Plug 'Valloric/YouCompleteMe'
+Plug 'roxma/SimpleAutoComplPop'
+
+" Plug 'Valloric/YouCompleteMe'
 
 call plug#end()
