@@ -34,5 +34,7 @@ function _roxma_tmux_init() {
 	fi
 }
 
+# tmux installation script: https://gist.github.com/roxma/1f8a3c51314d439a5cd816c811673467
+
 eval "$((_roxma_tmux_init) 3>&1 1>&2 )"
 
