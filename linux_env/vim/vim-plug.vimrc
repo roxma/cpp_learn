@@ -52,9 +52,9 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'dhruvasagar/vim-table-mode'
 
 " Should solve the pattern not found issue: https://github.com/Valloric/YouCompleteMe/pull/651
-" Plug 'roxma/SimpleAutoComplPop'
+Plug 'roxma/SimpleAutoComplPop'
 
 " YouCompleteMe slow down vim's start time, looking for replacement
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 
 call plug#end()
