@@ -140,7 +140,9 @@ nnoremap <expr> <C-d> winheight(0)/3 . '<C-e>'
 " {
 
 " auto wraping in text files
-autocmd FileType text,markdown setlocal tw=79
+" fo+=t enable auto wraping
+" fo+=a enable auto wraping for paragraph
+autocmd FileType text,markdown setlocal tw=79 fo+=ta
 
 " indentation
 set tabstop=4 | set softtabstop=4 | set shiftwidth=4 | set noexpandtab
