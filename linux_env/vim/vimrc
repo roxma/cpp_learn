@@ -140,7 +140,7 @@ nnoremap <expr> <C-d> winheight(0)/3 . '<C-e>'
 " {
 
 " auto wraping in text files
-autocmd FileType txt,md setlocal tw=79
+autocmd FileType text,markdown setlocal tw=79
 
 " indentation
 set tabstop=4 | set softtabstop=4 | set shiftwidth=4 | set noexpandtab
