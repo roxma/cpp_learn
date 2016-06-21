@@ -51,8 +51,10 @@ Plug 'ryanss/vim-hackernews'
 Plug 'edkolev/tmuxline.vim'
 Plug 'dhruvasagar/vim-table-mode'
 
-Plug 'roxma/SimpleAutoComplPop'
+" Should solve the pattern not found issue: https://github.com/Valloric/YouCompleteMe/pull/651
+" Plug 'roxma/SimpleAutoComplPop'
 
-" Plug 'Valloric/YouCompleteMe'
+" YouCompleteMe slow down vim's start time, looking for replacement
+Plug 'Valloric/YouCompleteMe'
 
 call plug#end()
