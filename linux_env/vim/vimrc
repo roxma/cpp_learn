@@ -146,9 +146,8 @@ autocmd FileType txt,md setlocal tw=79
 set tabstop=4 | set softtabstop=4 | set shiftwidth=4 | set noexpandtab
 " cpp indentation, use google style
 autocmd FileType cpp,c,cxx,h,hpp setlocal tabstop=2| set softtabstop=2| set shiftwidth=2 | set expandtab
-
-" Tagbar
-autocmd FileType cpp,c,cxx,h,hpp,py,php,js,htm,html TagbarOpen
+" php indentation standard, check this out: http://www.php-fig.org/psr/psr-2/#2-4-indenting
+autocmd FileType php             setlocal tabstop=4| set softtabstop=4| set shiftwidth=4 | set expandtab
 
 " folding
 set foldenable
