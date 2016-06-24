@@ -4,15 +4,37 @@
 
 call plug#begin(s:customvimrc_vim_dir . '/plugged/')
 
+Plug 'altercation/vim-colors-solarized'
+Plug 'noahfrederick/vim-noctu'
+
+Plug 'simeji/winresizer'
+Plug 'bling/vim-airline'
+Plug 'edkolev/tmuxline.vim'
+
+" git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
 Plug 'scrooloose/nerdtree'
-" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'godlygeek/tabular'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'bling/vim-airline'
+
+
 Plug 'majutsushi/tagbar'
+Plug 'dhruvasagar/vim-table-mode'
+" YouCompleteMe slow down vim's start time, replace it with SimpleAutoComplPop
+" Plug 'Valloric/YouCompleteMe'
+Plug 'roxma/SimpleAutoComplPop'
+
 
 " need to install the_silver_searcher first: https://github.com/ggreer/the_silver_searcher
 Plug 'rking/ag.vim'
+" Replace ctrlp with fzf
+" Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': './install --no-key-bindings --no-completion --no-update-rc' } " only install fzf for vim
+Plug 'junegunn/fzf.vim'
+" for the enhanced <Leader>* key
+Plug 'haya14busa/vim-asterisk'
 
 Plug 'scrooloose/syntastic'
 
@@ -29,32 +51,14 @@ Plug 'fatih/vim-go'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'mattn/emmet-vim'
 
-Plug 'junegunn/fzf', { 'do': './install --no-key-bindings --no-completion --no-update-rc' } " only install fzf for vim
-Plug 'junegunn/fzf.vim'
-
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-
-Plug 'simeji/winresizer'
-Plug 'christoomey/vim-tmux-navigator'
-
-Plug 'haya14busa/vim-asterisk'
-Plug 'altercation/vim-colors-solarized'
-Plug 'noahfrederick/vim-noctu'
+" not needed
+" Plug 'christoomey/vim-tmux-navigator'
 
 " Can't match JavaScript inside html <script> tag
 " Plug 'tmhedberg/matchit'
 
 " Browse hacker news in vim
-Plug 'ryanss/vim-hackernews'
-
-Plug 'edkolev/tmuxline.vim'
-Plug 'dhruvasagar/vim-table-mode'
-
-" Should solve the pattern not found issue: https://github.com/Valloric/YouCompleteMe/pull/651
-Plug 'roxma/SimpleAutoComplPop'
-
-" YouCompleteMe slow down vim's start time, looking for replacement
-" Plug 'Valloric/YouCompleteMe'
+" Plug 'ryanss/vim-hackernews'
 
 call plug#end()
+
