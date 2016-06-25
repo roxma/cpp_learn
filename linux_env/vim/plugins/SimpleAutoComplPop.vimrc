@@ -17,7 +17,7 @@ autocmd FileType php call sacp#enableForThisBuffer({ "matches": [
 " 2. When the '.' is pressed, use smarter omnicomplete `<C-x><C-o>`, this
 " works well with the vim-go plugin
 autocmd FileType go call sacp#enableForThisBuffer({ "matches": [
-			\ { '=~': '\v[a-zA-Z]{2}$' , 'feedkeys': "\<Plug>(sacp_cache_fuzzy_bufferkeyword_complete)"} ,
+			\ { '=~': '\v[a-zA-Z]{3}$' , 'feedkeys': "\<Plug>(sacp_cache_fuzzy_bufferkeyword_complete)"} ,
 			\ { '=~': '\.$'            , 'feedkeys': "\<Plug>(sacp_cache_fuzzy_omnicomplete)", "ignoreCompletionMode":1} ,
 			\ ]
 			\ })
