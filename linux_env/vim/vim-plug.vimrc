@@ -42,7 +42,8 @@ Plug 'scrooloose/syntastic'
 Plug 'plasticboy/vim-markdown'
 
 " php
-Plug 'shawncplus/phpcomplete.vim'
+" Use my own forked repo, I'm planning on performance improvment
+Plug 'roxma/phpcomplete.vim'
 
 " vim go
 Plug 'fatih/vim-go'
