@@ -3,12 +3,12 @@
 " disable default behavior for php
 let g:sacpDefaultFileTypesEnable = { "php":0, "markdown":1, "text":1, "go":0}
 
-" 1. matches local variables
+" The omnifunc phpcomplete#Complete is very slow, stop using it!
 autocmd FileType php call sacp#enableForThisBuffer({ "matches": [
-			\ { '=~': '\$\w\{2,}$'     , 'feedkeys': "\<C-X>\<C-n>"},
-			\ { '=~': '\v[a-zA-Z]{3,}$', 'feedkeys': "\<Plug>(sacp_cache_fuzzy_omnicomplete)"},
-			\ { '=~': '::$'            , 'feedkeys': "\<Plug>(sacp_cache_fuzzy_omnicomplete)"},
-			\ { '=~': '->$'            , 'feedkeys': "\<Plug>(sacp_cache_fuzzy_omnicomplete)"},
+			\ { '=~': '\$\w\{2,}$'     , 'feedkeys': "\<plug>(sacp_cache_fuzzy_bufferkeyword_complete)"},
+			\ { '=~': '\v[a-zA-Z]{3,}$', 'feedkeys': "\<plug>(sacp_cache_fuzzy_bufferkeyword_complete)"},
+			\ { '=~': '::$'            , 'feedkeys': "\<plug>(sacp_cache_fuzzy_bufferkeyword_complete)"},
+			\ { '=~': '->$'            , 'feedkeys': "\<plug>(sacp_cache_fuzzy_bufferkeyword_complete)"},
 			\ ]
 			\ })
 
