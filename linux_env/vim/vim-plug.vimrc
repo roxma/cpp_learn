@@ -9,7 +9,9 @@ Plug 'noahfrederick/vim-noctu'
 
 Plug 'simeji/winresizer'
 Plug 'bling/vim-airline'
-Plug 'edkolev/tmuxline.vim'
+
+" I use my own simple configuration, don't need this plugin anymore
+" Plug 'edkolev/tmuxline.vim'
 
 " git
 Plug 'tpope/vim-fugitive'
