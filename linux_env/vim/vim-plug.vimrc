@@ -17,17 +17,17 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
-Plug 'scrooloose/nerdtree'
 Plug 'godlygeek/tabular'
+Plug 'tpope/vim-surround'
+Plug 'dhruvasagar/vim-table-mode'
+
 Plug 'Lokaltog/vim-easymotion'
 
-
-Plug 'majutsushi/tagbar'
-Plug 'dhruvasagar/vim-table-mode'
 " YouCompleteMe slow down vim's start time, replace it with SimpleAutoComplPop
 " Plug 'Valloric/YouCompleteMe'
 Plug 'roxma/SimpleAutoComplPop'
-
+Plug 'majutsushi/tagbar'
+Plug 'scrooloose/nerdtree'
 
 " need to install the_silver_searcher first: https://github.com/ggreer/the_silver_searcher
 Plug 'rking/ag.vim'
@@ -39,6 +39,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'haya14busa/vim-asterisk'
 
 Plug 'scrooloose/syntastic'
+
 
 " markdown
 Plug 'plasticboy/vim-markdown'
