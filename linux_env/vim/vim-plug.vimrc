@@ -17,9 +17,17 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
+""""""""""""""""""""""""""""""""""""""""""""""""
+" generel editting {
 Plug 'godlygeek/tabular'
-Plug 'tpope/vim-surround'
+" vim-surround have nice key mappings, but still I think it's too limited and
+" complicated.
+" cool, but still have some confuzing issues, not what I want
+" Plug 'terryma/vim-multiple-cursors'
 Plug 'dhruvasagar/vim-table-mode'
+
+" }
+""""""""""""""""""""""""""""""""""""""""""""""""
 
 Plug 'Lokaltog/vim-easymotion'
 
