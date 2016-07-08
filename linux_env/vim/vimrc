@@ -131,6 +131,12 @@ autocmd VimEnter * DoMatchParen
 nnoremap <expr> <C-u> winheight(0)/3 . '<C-y>'
 nnoremap <expr> <C-d> winheight(0)/3 . '<C-e>'
 
+" just like shell command editing
+inoremap <C-e> <C-o>$
+inoremap <C-a> <C-o>^
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+
 "
 " }
 """"
