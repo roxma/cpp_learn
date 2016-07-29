@@ -63,6 +63,10 @@ Plug 'fatih/vim-go'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'mattn/emmet-vim'
 
+
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'roxma/vim-tmux-clipboard'
+
 " not needed
 " Plug 'christoomey/vim-tmux-navigator'
 
