@@ -2,21 +2,11 @@
 
 set -o emacs
 
-# set editing-mode vi
-# bind -m vi-insert “\C-l”:clear-screen
-
-function cdl(){
-	if [[ -L "$1" ]]
-	then
-		local absPath="$(readlink -f $1)"
-		if [[ -f $absPath ]]
-		then
-			cd $(dirname $absPath)
-		else
-			cd $absPath
-		fi
-	else
-		cd `readlink -f $1` 
-	fi
-}
+# npm
+if which --skip-alias npm 2>/dev/null 1>/dev/null ; then
+	alias cnpm="$(which --skip-alias npm) --registry=https://registry.npm.taobao.org \
+		--cache=$HOME/.npm/.cache/cnpm \
+		--disturl=https://npm.taobao.org/dist \
+		--userconfig=$HOME/.cnpmrc"
+fi
 
