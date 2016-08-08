@@ -10,6 +10,10 @@ nnoremap <Leader>f  :FZF<CR>
 nnoremap <C-f><C-m> :FZFHistory<CR>
 nnoremap <C-f>m     :FZFHistory<CR>
 
+" Commands
+nnoremap <C-f><C-c> :FZFCommands<CR>
+nnoremap <C-f>c     :FZFCommands<CR>
+
 " Buffers
 nnoremap <C-f><C-b> :FZFBuffers<CR>
 nnoremap <C-f>b     :FZFBuffers<CR>

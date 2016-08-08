@@ -37,6 +37,9 @@ if &term=="xterm-256color"
 endif
 
 " my favorite colorscheme
+" The default medium is bad for terminal with remote connection
+" due to the low FPS
+let g:gruvbox_contrast_dark="hard"
 set background=dark
 colorscheme gruvbox
 
