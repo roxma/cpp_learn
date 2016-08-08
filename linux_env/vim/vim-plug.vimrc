@@ -4,8 +4,11 @@
 
 call plug#begin(s:customvimrc_vim_dir . '/plugged/')
 
-Plug 'altercation/vim-colors-solarized'
-Plug 'noahfrederick/vim-noctu'
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'noahfrederick/vim-noctu'
+" Plug 'w0ng/vim-hybrid'
+Plug 'morhetz/gruvbox'
+" Plug 'flazz/vim-colorschemes'
 
 Plug 'simeji/winresizer'
 Plug 'bling/vim-airline'
@@ -17,17 +20,12 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
-""""""""""""""""""""""""""""""""""""""""""""""""
-" generel editting {
 Plug 'godlygeek/tabular'
 " vim-surround have nice key mappings, but still I think it's too limited and
 " complicated.
 " cool, but still have some confuzing issues, not what I want
 " Plug 'terryma/vim-multiple-cursors'
 Plug 'dhruvasagar/vim-table-mode'
-
-" }
-""""""""""""""""""""""""""""""""""""""""""""""""
 
 Plug 'Lokaltog/vim-easymotion'
 
@@ -48,6 +46,8 @@ Plug 'haya14busa/vim-asterisk'
 
 Plug 'scrooloose/syntastic'
 
+" html
+Plug 'othree/html5.vim'
 
 " markdown
 Plug 'plasticboy/vim-markdown'
@@ -66,6 +66,9 @@ Plug 'mattn/emmet-vim'
 
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'roxma/vim-tmux-clipboard'
+
+" crashes if no man page found
+" Plug 'jez/vim-superman'
 
 " not needed
 " Plug 'christoomey/vim-tmux-navigator'

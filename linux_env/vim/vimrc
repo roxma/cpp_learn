@@ -36,10 +36,13 @@ if &term=="xterm-256color"
     set t_Co=256
 endif
 
+" my favorite colorscheme
+set background=dark
+colorscheme gruvbox
+
 " Don't wake up system with blinking cursor:
 " http://www.linuxpowertop.org/known.php
 let &guicursor = &guicursor . ",a:blinkon0"
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " the mapping requires the above code to executed first
