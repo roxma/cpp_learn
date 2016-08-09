@@ -1,7 +1,9 @@
 #!/bin/bash
 
+basicVimrcFiles=./vim-plug.vimrc ./vimrc
+
 echo "function roxma_vim_rcfile(){"
-vimrcEncodedContent="$(cat $(find ./ -maxdepth 1 -name vimrc -o -name "*.vimrc" -o -name "*.vim")  $(find ./ -mindepth 2 -name vimrc -o -name "*.vimrc" -o -name "*.vim") | base64)"
+vimrcEncodedContent="$(cat $basicVimrcFiles  $(find ./ -mindepth 2 -name vimrc -o -name "*.vimrc" -o -name "*.vim") | base64)"
 	echo 'local roxVimrcFile=/tmp/rox_vimrc_$(echo "$(whoami)" | base64_encode )'
 	echo "echo '$vimrcEncodedContent' | base64_decode > \$roxVimrcFile"
 	echo "echo \"\$roxVimrcFile\""
@@ -13,7 +15,7 @@ echo "function roxma_nvim_rcfile_name(){"
 echo "}"
 
 echo "function roxma_nvim_rcfile_generate(){"
-vimrcEncodedContent="$(cat $(find ./ -maxdepth 1 -name vimrc -o -name "*.vimrc" -o -name "*.vim")  $(find ./ -mindepth 2 -name vimrc -o -name "*.vimrc" -o -name "*.vim") | base64)"
+vimrcEncodedContent="$(cat $basicVimrcFiles  $(find ./ -mindepth 2 -name vimrc -o -name "*.vimrc" -o -name "*.vim") | base64)"
     echo "echo '$vimrcEncodedContent' | base64_decode > \$(roxma_nvim_rcfile_name)"
 echo "}"
 
