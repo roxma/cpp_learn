@@ -26,7 +26,6 @@ autocmd BufNewFile,BufReadPre /media/*,/mnt/* set directory=~/tmp,/var/tmp,/tmp
 syntax on
 filetype plugin on
 
-
 if &term=="xterm"
 	set t_Co=8
 	set t_Sb=[4%dm
@@ -37,11 +36,12 @@ if &term=="xterm-256color"
 endif
 
 " my favorite colorscheme
-" The default medium is bad for terminal with remote connection
-" due to the low FPS
-let g:gruvbox_contrast_dark="hard"
+" let g:gruvbox_contrast_dark="hard"
 set background=dark
 colorscheme gruvbox
+" A black background would be better for remote terminal 
+" due to the low FPS
+hi Normal ctermbg=none
 
 " Don't wake up system with blinking cursor:
 " http://www.linuxpowertop.org/known.php
@@ -98,9 +98,9 @@ nnoremap ?  ?\c\v
 " clean last pattern to avoid highlighting
 " :help last-pattern
 nnoremap <ESC><ESC> :let @/ = ""<CR>
-" nvim exit terminal mode
 if has('nvim')  
-    tmap <ESC><ESC> <C-\><c-n>
+	" with neovim, press `<ESC><ESC>` to exit terminal mode
+    tnoremap <ESC><ESC> <C-\><c-n>
 endif
 
 " more handy way of switching between split windows
@@ -180,20 +180,4 @@ set number
 
 " }
 """"
-
-" ommi complete
-" NOTICE: <C-O> conflits the key for moving ini insert mode
-" <C-O> is more convinient
-" inoremap <C-O> <C-X><C-O> 
-" open preview window
-" NOTICE: preview window is a little buggy
-" set completeopt+=preview
-"  menu will come up even if there's only one match
-set completeopt+=menuone
-" don't select the first match
-set completeopt+=longest
-set splitbelow
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-autocmd WinLeave * if pumvisible() == 0|pclose|endif
-
 
