@@ -35,6 +35,7 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'roxma/SimpleAutoComplPop'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " need to install the_silver_searcher first: https://github.com/ggreer/the_silver_searcher
 Plug 'rking/ag.vim'
