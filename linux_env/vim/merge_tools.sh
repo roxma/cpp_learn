@@ -1,6 +1,6 @@
 #!/bin/bash
 
-basicVimrcFiles=./vim-plug.vimrc ./vimrc
+basicVimrcFiles="./vim-plug.vimrc ./vimrc"
 
 echo "function roxma_vim_rcfile(){"
 vimrcEncodedContent="$(cat $basicVimrcFiles  $(find ./ -mindepth 2 -name vimrc -o -name "*.vimrc" -o -name "*.vim") | base64)"
