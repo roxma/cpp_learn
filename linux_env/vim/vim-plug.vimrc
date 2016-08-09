@@ -18,6 +18,7 @@ Plug 'bling/vim-airline'
 
 " git
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'godlygeek/tabular'
