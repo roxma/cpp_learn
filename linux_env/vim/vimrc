@@ -35,13 +35,18 @@ if &term=="xterm-256color"
     set t_Co=256
 endif
 
-" my favorite colorscheme
-" let g:gruvbox_contrast_dark="hard"
-set background=dark
-colorscheme gruvbox
-" A black background would be better for remote terminal 
-" due to the low FPS
-hi Normal ctermbg=none
+try
+	" my favorite colorscheme
+	" let g:gruvbox_contrast_dark="hard"
+	set background=dark
+	colorscheme gruvbox
+	" A black background would be better for remote terminal 
+	" due to the low FPS
+	hi Normal ctermbg=none
+catch
+	set background=dark
+	colorscheme default
+endtry
 
 " Don't wake up system with blinking cursor:
 " http://www.linuxpowertop.org/known.php
