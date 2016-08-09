@@ -19,6 +19,7 @@ Plug 'bling/vim-airline'
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
+Plug 'gregsexton/gitv'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'godlygeek/tabular'
@@ -32,7 +33,9 @@ Plug 'Lokaltog/vim-easymotion'
 
 " YouCompleteMe slow down vim's start time, replace it with SimpleAutoComplPop
 " Plug 'Valloric/YouCompleteMe'
+Plug 'scrooloose/syntastic'
 Plug 'roxma/SimpleAutoComplPop'
+
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -46,11 +49,6 @@ Plug 'junegunn/fzf.vim'
 " for the enhanced <Leader>* key
 Plug 'haya14busa/vim-asterisk'
 
-Plug 'scrooloose/syntastic'
-
-" html
-Plug 'othree/html5.vim'
-
 " markdown
 Plug 'plasticboy/vim-markdown'
 
@@ -63,6 +61,8 @@ Plug 'fatih/vim-go'
 
 " web front-end
 Plug 'jelera/vim-javascript-syntax'
+" html
+Plug 'othree/html5.vim'
 Plug 'mattn/emmet-vim'
 
 
