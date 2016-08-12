@@ -137,8 +137,12 @@ autocmd VimEnter * DoMatchParen
 """"
 
 """
-" moving
+" motion
 " {
+
+" go to parent, it's better to create a plugin map insead of nmap
+nnoremap ]t vatatv
+nnoremap [t vatatov
 
 nnoremap <expr> <C-u> winheight(0)/3 . '<C-y>'
 nnoremap <expr> <C-d> winheight(0)/3 . '<C-e>'
