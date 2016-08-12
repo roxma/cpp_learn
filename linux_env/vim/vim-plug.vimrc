@@ -23,8 +23,7 @@ Plug 'gregsexton/gitv'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'godlygeek/tabular'
-" vim-surround have nice key mappings, but still I think it's too limited and
-" complicated.
+Plug 'tpope/vim-surround'
 " cool, but still have some confuzing issues, not what I want
 " Plug 'terryma/vim-multiple-cursors'
 Plug 'dhruvasagar/vim-table-mode'
