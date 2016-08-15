@@ -22,6 +22,7 @@ Plug 'junegunn/gv.vim'
 Plug 'gregsexton/gitv'
 Plug 'airblade/vim-gitgutter'
 
+Plug 'roxma/vim-encode'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-surround'
 " cool, but still have some confuzing issues, not what I want
