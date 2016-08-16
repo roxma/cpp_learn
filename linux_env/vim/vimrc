@@ -76,6 +76,9 @@ set encoding=utf-8 fileencodings=ucs-bom,utf-8,gbk,gb18030,latin1 termencoding=u
 " nnoremap <expr> <S-l> ( (type(tabpagebuflist(tabpagenr()==3))||(type(tabpagebuflist(tabpagenr()-1))==3)) ? ":tabn\<CR>"  : ":bn\<CR>" )
 nnoremap <expr> <S-l> ( (type(tabpagebuflist(tabpagenr()+1))+type(tabpagebuflist(tabpagenr()-1))>0) ? ":tabn\<CR>"  : ":bn\<CR>" )
 nnoremap <expr> <S-h> ( (type(tabpagebuflist(tabpagenr()-1))+type(tabpagebuflist(tabpagenr()+1))>0) ? ":tabp\<CR>"  : ":bp\<CR>" )
+" Avoid message "E37: No write since last change (add ! to override)" when try
+" to switch buffer
+set hidden
 
 " file tab highlighting, deprecated, use airline plugin with 'set t_Co=256' now
 " hi TabLineSel      term=bold cterm=bold
