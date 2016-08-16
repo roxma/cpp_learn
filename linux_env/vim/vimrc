@@ -71,9 +71,11 @@ set encoding=utf-8 fileencodings=ucs-bom,utf-8,gbk,gb18030,latin1 termencoding=u
 " {
 "
 
-" file tab switching 
-nnoremap <S-l> :tabn<CR>
-nnoremap <S-h> :tabN<CR>
+" smart tab/buffer switching. nice integrated with airline
+" NOTE: this is wierd, the follow ing command is invalid:
+" nnoremap <expr> <S-l> ( (type(tabpagebuflist(tabpagenr()==3))||(type(tabpagebuflist(tabpagenr()-1))==3)) ? ":tabn\<CR>"  : ":bn\<CR>" )
+nnoremap <expr> <S-l> ( (type(tabpagebuflist(tabpagenr()+1))+type(tabpagebuflist(tabpagenr()-1))>0) ? ":tabn\<CR>"  : ":bn\<CR>" )
+nnoremap <expr> <S-h> ( (type(tabpagebuflist(tabpagenr()-1))+type(tabpagebuflist(tabpagenr()+1))>0) ? ":tabp\<CR>"  : ":bp\<CR>" )
 
 " file tab highlighting, deprecated, use airline plugin with 'set t_Co=256' now
 " hi TabLineSel      term=bold cterm=bold
