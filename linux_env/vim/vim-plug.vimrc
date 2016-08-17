@@ -9,6 +9,7 @@ call plug#begin(s:customvimrc_vim_dir . '/plugged/')
 " Plug 'w0ng/vim-hybrid'
 Plug 'morhetz/gruvbox'
 " Plug 'flazz/vim-colorschemes'
+" Plug 'ryanoasis/vim-devicons'
 
 Plug 'simeji/winresizer'
 Plug 'bling/vim-airline'
@@ -39,6 +40,7 @@ Plug 'roxma/SimpleAutoComplPop'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " need to install the_silver_searcher first: https://github.com/ggreer/the_silver_searcher
 Plug 'rking/ag.vim'
