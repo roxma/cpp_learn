@@ -11,6 +11,8 @@ Plug 'morhetz/gruvbox'
 " Plug 'flazz/vim-colorschemes'
 " Plug 'ryanoasis/vim-devicons'
 
+Plug 'roxma/vim-tweak'
+
 Plug 'simeji/winresizer'
 Plug 'bling/vim-airline'
 
