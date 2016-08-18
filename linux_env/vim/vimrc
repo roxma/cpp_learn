@@ -91,6 +91,9 @@ TweakPlug 'tpope/vim-surround'
 " TweakPlug 'terryma/vim-multiple-cursors'
 TweakPlug 'dhruvasagar/vim-table-mode'
 
+" I have easymotion already. If I partially mapped sneak key f,
+" Then F + ; will now work as I expected. So I don't use this plugin.
+" TweakPlug 'justinmk/vim-sneak'
 TweakPlug 'Lokaltog/vim-easymotion'
 
 " YouCompleteMe slow down vim's start time, replace it with SimpleAutoComplPop
