@@ -87,6 +87,7 @@ TweakPlug 'airblade/vim-gitgutter'
 TweakPlug 'roxma/vim-encode'
 TweakPlug 'godlygeek/tabular'
 TweakPlug 'tpope/vim-surround'
+TweakPlug 'tpope/vim-commentary'
 " cool, but still have some confuzing issues, not what I want
 " TweakPlug 'terryma/vim-multiple-cursors'
 TweakPlug 'dhruvasagar/vim-table-mode'
