@@ -23,14 +23,13 @@ function _roxma_vim_env_init()
 			###
 			# prepend some script to the vimrc file:
 			# 1. set custom vimrc environment variables
-			# 2. add pathogen initialization to the beginning of vimrc file
+			# 2. add vim-plug to rtp
 			echo "
 			let s:customvimrc_local_software_dir='$(pwd)/.local_software/'
 			let s:customvimrc_vim_dir='$(pwd)/${localVimDir}/'
 
-			set rtp+=$(pwd)/${localVimDir}/vim-pathogen-master/
+			source $(pwd)/${localVimDir}/plugins/vim-plug/plug.vim
 			set nocompatible
-			execute pathogen#infect('$(pwd)/${localVimDir}/bundle/{}')
 			syntax on
 			filetype plugin indent on
 			" > ${customVimrcFile}.tmp
@@ -50,29 +49,6 @@ function _roxma_vim_env_init()
 				echo "$(roxma_vim_plugins_tgz_encoded)" | base64_decode > ${localVimDir}/plugins.tar.gz			# plugins.tar.gz
 				tar -zxf ${localVimDir}/plugins.tar.gz -C ${localVimDir}/ && rm ${localVimDir}/plugins.tar.gz	# decompress plugins.tar.gz
 				roxma_vim_plugins_tgz_encoded_content_md5sum > ${localVimDir}/plugins_md5sum.txt
-				for file in $(find ${localVimDir}/plugins/ -name "*.tar.gz") ; do		# vimplugin.tar.gz
-					tar -xzf $file -C ${localVimDir}/plugins/
-					rm $file
-				done
-				for file in $(find ${localVimDir}/plugins/ -name "*.zip") ; do			# vimplugin.zip
-					unzip -q -d ${localVimDir}/plugins/ $file
-					rm $file
-				done
-
-				# pathogen, the vim plugin manager
-				mkdir -p  ${localVimDir}/bundle
-				mv ${localVimDir}/plugins/vim-pathogen-master ${localVimDir}/
-
-				# all other vim plugins
-				for pluginDir in $(ls ${localVimDir}/plugins/) ; do
-					mv ${localVimDir}/plugins/$pluginDir ${localVimDir}/bundle/
-					# add the plugin documentation to vim
-					if [[ -d  ${localVimDir}/bundle/$pluginDir/doc ]] ; then
-						echo  "set runtimepath+=${localVimDir}/bundle/$pluginDir/doc" >> $customVimrcFile
-						${localVimDir}/bin/vim -E -c "helptags ${localVimDir}/bundle/$pluginDir/doc" -c q
-					fi
-				done
-
 			fi
 
 		} | tee
