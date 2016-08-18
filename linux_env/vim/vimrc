@@ -36,12 +36,20 @@ func! g:TweakHasPlug(repo)
 	return has_key(TweakPlug(),a:repo)
 endfunc
 
+func! s:TweakBootstrap()
+	try
+		call tweak#bootstrap()
+	catch /\V\^Vim(call):E117: Unknown function: tweak#bootstrap\$/
+		let l:dummp = 0
+	endtry
+endfunc
+
 " You should execute :PlugInstall to install plugins when open vim for the
 " first time
 
 command -nargs=+ -bar  TweakPlugBegin  call plug#begin(<args>) | TweakPlug 'roxma/vim-tweak'
 command -nargs=+ -bar  TweakPlug  call g:TweakPlug(<args>) | Plug <args>
-command -bar  TweakPlugEnd  call plug#end() | call tweak#bootstrap()
+command -bar  TweakPlugEnd  call plug#end() | call s:TweakBootstrap()
 
 
 TweakPlugBegin s:customvimrc_vim_dir.'/plugged/'
