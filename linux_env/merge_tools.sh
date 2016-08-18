@@ -7,7 +7,7 @@ option_compress=1
 function Entry(){
 
 	local baseDir="$(readlink -f .)"
-	local moduleDirs="$(find . -mindepth 1 -type d)"
+	local moduleDirs="$(find . -mindepth 1 -maxdepth 1 -type d)"
 
 	echo '#!/bin/bash' 
 
