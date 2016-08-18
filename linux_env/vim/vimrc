@@ -21,6 +21,10 @@ endif
 let mapleader = " "
 
 
+func! s:TweakPlugBegin(dir,...)
+	let g:_tweak_plugins_dir = a:dir
+endfunc
+
 " register plugins for vim-tweak
 func! g:TweakPlug(...)
 	if exists('g:_tweak_plugins')!=1
@@ -33,7 +37,13 @@ func! g:TweakPlug(...)
 endfunc
 
 func! g:TweakHasPlug(repo)
-	return has_key(TweakPlug(),a:repo)
+	if has_key(TweakPlug(),a:repo) == 0
+		return 0
+	endif
+	if finddir(fnamemodify(repo,":t"),g:_tweak_plugins_dir) == ""
+		return 0
+	endif
+	return 1
 endfunc
 
 func! s:TweakBootstrap()
@@ -47,7 +57,7 @@ endfunc
 " You should execute :PlugInstall to install plugins when open vim for the
 " first time
 
-command -nargs=+ -bar  TweakPlugBegin  call plug#begin(<args>) | TweakPlug 'roxma/vim-tweak'
+command -nargs=+ -bar  TweakPlugBegin  call plug#begin(<args>) | call s:TweakPlugBegin(<args>) | TweakPlug 'roxma/vim-tweak'
 command -nargs=+ -bar  TweakPlug  call g:TweakPlug(<args>) | Plug <args>
 command -bar  TweakPlugEnd  call plug#end() | call s:TweakBootstrap()
 
