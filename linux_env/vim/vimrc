@@ -40,7 +40,7 @@ func! g:TweakHasPlug(repo)
 	if has_key(TweakPlug(),a:repo) == 0
 		return 0
 	endif
-	if finddir(fnamemodify(repo,":t"),g:_tweak_plugins_dir) == ""
+	if finddir(fnamemodify(a:repo,":t"),g:_tweak_plugins_dir) == ""
 		return 0
 	endif
 	return 1
