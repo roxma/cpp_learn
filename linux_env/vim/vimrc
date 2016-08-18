@@ -18,3 +18,5 @@ if exists("s:customvimrc_local_software_dir")
 	endfor
 endif
 
+let mapleader = " "
+

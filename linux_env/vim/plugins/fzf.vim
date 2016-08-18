@@ -17,6 +17,7 @@ nnoremap <C-f>c     :FZFCommands<CR>
 " Buffers
 nnoremap <C-f><C-b> :FZFBuffers<CR>
 nnoremap <C-f>b     :FZFBuffers<CR>
+nnoremap <C-b>      :FZFBuffers<CR>
 
 " lines
 nnoremap <C-f>l  	 :FZFLines<CR>
