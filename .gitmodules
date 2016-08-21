@@ -1,3 +1,6 @@
 [submodule "vim-plug"]
 	path = linux_env/vim/plugins/vim-plug
 	url = git@github.com:junegunn/vim-plug.git
+[submodule "linux_env/vim/plugins/vim-tweak"]
+	path = linux_env/vim/plugins/vim-tweak
+	url = git@github.com:roxma/vim-tweak.git

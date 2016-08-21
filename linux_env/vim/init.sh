@@ -25,13 +25,17 @@ function _roxma_vim_env_init()
 			# 1. set custom vimrc environment variables
 			# 2. add vim-plug to rtp
 			echo "
-			let s:customvimrc_local_software_dir='$(pwd)/.local_software/'
-			let s:customvimrc_vim_dir='$(pwd)/${localVimDir}/'
-
-			source $(pwd)/${localVimDir}/plugins/vim-plug/plug.vim
 			set nocompatible
 			syntax on
 			filetype plugin indent on
+			set encoding=utf-8 fileencodings=ucs-bom,utf-8,gbk,gb18030,latin1 termencoding=utf-8
+			source $(pwd)/${localVimDir}/plugins/vim-plug/plug.vim
+			set rtp+=$(pwd)/${localVimDir}/plugins/vim-tweak
+			try
+				call tweak#bootstrap('$(pwd)/${localVimDir}/plugged/')
+			catch /\V\^Vim(call):E117: Unknown function: tweak#bootstrap\$/
+				let l:dummp = 0
+			endtry
 			" > ${customVimrcFile}.tmp
 			cat ${customVimrcFile} >> ${customVimrcFile}.tmp
 			mv ${customVimrcFile}.tmp ${customVimrcFile}
@@ -39,16 +43,22 @@ function _roxma_vim_env_init()
 			###
 
 			# If plugins has changed
-			if [[ "$(roxma_vim_plugins_tgz_encoded_content_md5sum)" != "$(cat ${localVimDir}/plugins_md5sum.txt 2>/dev/null )" ]]
+			if [ ! -d $(pwd)/${localVimDir}/plugins ]
 			then
-
-				# clean old plugins
-				rm -rf ${localVimDir}/plugins_md5sum.txt ${localVimDir}/plugins ${localVimDir}/plugins.tar.gz ${localVimDir}/bundle ${localVimDir}/vim-pathogen-master
-
 				# decompress new vim plugins
 				echo "$(roxma_vim_plugins_tgz_encoded)" | base64_decode > ${localVimDir}/plugins.tar.gz			# plugins.tar.gz
 				tar -zxf ${localVimDir}/plugins.tar.gz -C ${localVimDir}/ && rm ${localVimDir}/plugins.tar.gz	# decompress plugins.tar.gz
-				roxma_vim_plugins_tgz_encoded_content_md5sum > ${localVimDir}/plugins_md5sum.txt
+				(
+				cd $(pwd)/${localVimDir}/plugins
+				mv vim-tweak vim-tweak.bak
+				git clone git@github.com:roxma/vim-tweak.git
+				if [ "$?" != 0 ]
+				then
+					mv vim-tweak.bak vim-tweak
+				else
+					true
+				fi
+				)
 			fi
 
 		} | tee
