@@ -1,6 +1,6 @@
 #!/bin/bash
 
-basicVimrcFiles="./vimrc"
+basicVimrcFiles="/dev/null"
 
 echo "function roxma_vim_rcfile(){"
 vimrcEncodedContent="$(cat $basicVimrcFiles | base64)"
