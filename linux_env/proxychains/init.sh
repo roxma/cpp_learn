@@ -29,3 +29,18 @@ function roxma_install_proxychains() {
 
 eval "$((_roxma_proxychains_init) 3>&1 1>&2 )"
 
+# used togethre with shadowsocks:
+# pip3 install shadowsocks
+# /bin/ssserver -p port -k password -m rc4-md5 --user nobody -d start
+# sslocal -c /etc/shadowsocks.json -d start
+#
+# /etc/shadowsocks.json file:
+# {
+#         "server"        : "server",
+#         "server_port"   : port,
+#         "local_address" : "127.0.0.1",
+#         "local_port"    : 1080,
+#         "password"      : "password",
+#         "timeout"       : 1000,
+#         "method"        : "rc4-md5"
+# }
