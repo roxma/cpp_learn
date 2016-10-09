@@ -12,9 +12,6 @@ function _roxma_proxychains_init() {
 
 # tmux installation script: https://gist.github.com/roxma/1f8a3c51314d439a5cd816c811673467
 
-eval "$((_roxma_proxychains_init) 3>&1 1>&2 )"
-
-
 function roxma_install_proxychains() {
 	if [ -d $(dirname ${BASH_SOURCE[0]})/.local_software/proxychains/bin/ ]
 	then
