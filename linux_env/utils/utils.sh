@@ -13,3 +13,19 @@ fi
 function enject_env() {
 	gdb -batch -ex 'attach '$1 -ex 'call putenv ("'$2'")' -ex 'detach'; 
 }
+
+
+function tmux_renumber_windows() {
+	local windows=$(tmux list-windows | awk -F: '{print $1}')
+	local i=0
+	local n
+	for n in $windows 
+	do
+		if [ "$n" -ne "$i" ]
+		then
+			tmux move-window -s $n -t $i
+		fi
+		i=$((i+1))
+	done
+}
+

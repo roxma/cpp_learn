@@ -19,7 +19,7 @@ function roxma_install_proxychains() {
 		return 0
 	fi
 	{
-		cd "$(dirname ${BASH_SOURCE[0]})"/.local_software && mkdir -p tmp && cd tmp  && rm -rf proxychains-ng && git clone git@github.com:rofl0r/proxychains-ng.git
+		cd "$(dirname ${BASH_SOURCE[0]})"/.local_software && mkdir -p tmp && cd tmp  && rm -rf proxychains-ng && git clone https://github.com/rofl0r/proxychains-ng.git
 		cd proxychains-ng  && ./configure --prefix="$(dirname ${BASH_SOURCE[0]})/.local_software/proxychains/" &&  make && make install && make install-config
 	} | tee
 }
