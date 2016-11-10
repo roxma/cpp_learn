@@ -7,6 +7,8 @@ nix-env --install python3
 nix-env --install git
 nix-env --install lua
 nix-env --install elixir
+nix-env --install neovim
+nix-env --install tmux
 
 # nix-env -i php-7.0.12
 # 
