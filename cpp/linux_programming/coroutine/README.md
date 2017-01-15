@@ -22,7 +22,7 @@ For creating the routine's execution context, we could call [`pthread_create`](h
 
 Here's the definition of our routines info. To make this article shorter, all error handling code are deleted to become the demonstration version. The source code of the original version is in the `coroutine.cpp`, the demostration version is `coroutime_demonstration.cpp`.
 
-``` cplusplus
+```cpp
 typedef void * (*RoutineHandler)(void*);
 
 struct RoutineInfo{
@@ -62,7 +62,7 @@ struct RoutineInfo{
 
 Also, we need a global list to store our RoutineInfo objects.
 
-``` cplusplus
+```cpp
 std::list<RoutineInfo*> InitRoutines(){
 	std::list<RoutineInfo*> list;
 	RoutineInfo *main = new RoutineInfo(0);
@@ -74,7 +74,7 @@ std::list<RoutineInfo*> routines = InitRoutines();
 
 Here's how a coroutine gets created. Notice that when the created thread exits, the stack may be damaged, so we need the `stackBackup` as a buffer to store and restore the stack.
 
-``` cplusplus
+```cpp
 void *stackBackup = NULL;
 void *CoroutineStart(void *pRoutineInfo);
 
@@ -100,7 +100,7 @@ int CreateCoroutine(RoutineHandler handler,void* param ){
 
 Now comes to the CoroutineStart handler. When the created thread enters the `CoroutineStart` funciton, it use `setjmp` to store context, and then backup its own stack. and then exit execution.
 
-``` cplusplus
+```cpp
 void Switch();
 
 void *CoroutineStart(void *pRoutineInfo){
@@ -132,7 +132,7 @@ void *CoroutineStart(void *pRoutineInfo){
 
 A routine calls the `Switch()` function to swtich to another routine by itself.
 
-``` cplusplus
+```cpp
 std::list<RoutineInfo*> stoppedRoutines = std::list<RoutineInfo*>();
 
 void Switch(){
@@ -165,7 +165,7 @@ void Switch(){
 
 The user code is pretty simple, its almost like using a threading library. In coroutines, the routine calls the `Switch()` function to give CPU time to another routine by itself.
 
-``` cplusplus
+```cpp
 #include <iostream>
 using namespace std;
 
