@@ -22,7 +22,7 @@
 
 下面是 RoutineInfo 的定义。为了简单起见，所有错误处理代码都被省略了，原版本的代码在 `coroutine.cpp` 文件中，省略版的代码在 `coroutine_demonstration.cpp` 文件中。
 
-``` cplusplus
+```cplusplus
 typedef void * (*RoutineHandler)(void*);
 
 struct RoutineInfo{
@@ -62,7 +62,7 @@ struct RoutineInfo{
 
 然后，我们需要一下全局的列表来保存这些 RoutineInfo 对象。
 
-``` cplusplus
+```cplusplus
 std::list<RoutineInfo*> InitRoutines(){
 	std::list<RoutineInfo*> list;
 	RoutineInfo *main = new RoutineInfo(0);
@@ -74,7 +74,7 @@ std::list<RoutineInfo*> routines = InitRoutines();
 
 接下来是协程的创建，注意当协程的时候，程序栈有可能已经被损坏了，所以需要一个 `stackBack` 作为程序栈的备份，用来做后面的恢复。
 
-``` cplusplus
+```cplusplus
 void *stackBackup = NULL;
 void *CoroutineStart(void *pRoutineInfo);
 
@@ -100,7 +100,7 @@ int CreateCoroutine(RoutineHandler handler,void* param ){
 
 然后是 CoroutinneStart 函数。当线程进入这个函数的时候，使用 `setjmp` 保存上下文，然后备份它自己的程序栈，然后直接退出线程。
 
-``` cplusplus
+```cplusplus
 void Switch();
 
 void *CoroutineStart(void *pRoutineInfo){
@@ -132,7 +132,7 @@ void *CoroutineStart(void *pRoutineInfo){
 
 一个协程主动调用 `Switch()` 函数，才切换到另一个协程。
 
-``` cplusplus
+```cplusplus
 std::list<RoutineInfo*> stoppedRoutines = std::list<RoutineInfo*>();
 
 void Switch(){
@@ -165,7 +165,7 @@ void Switch(){
 
 用户的代码很简单，就像使用一个线程库一样，一个协程主动调用 `Switch()` 函数主动让出 CPU 时间给另一个协程。
 
-``` cplusplus
+```cplusplus
 #include <iostream>
 using namespace std;
 
