@@ -36,7 +36,7 @@ function _roxma_vim_env_init()
 			catch /\V\^Vim(call):E117: Unknown function: tweak#bootstrap\$/
 				let l:dummp = 0
 			endtry
-			if !has('unix')
+			if has('win32') || has('win64')
 				# 解决 windows 乱码
 				source $VIMRUNTIME/delmenu.vim
 				source $VIMRUNTIME/menu.vim
