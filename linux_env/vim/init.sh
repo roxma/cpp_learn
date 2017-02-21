@@ -36,6 +36,11 @@ function _roxma_vim_env_init()
 			catch /\V\^Vim(call):E117: Unknown function: tweak#bootstrap\$/
 				let l:dummp = 0
 			endtry
+			if !has('unix')
+				# 解决 windows 乱码
+				source $VIMRUNTIME/delmenu.vim
+				source $VIMRUNTIME/menu.vim
+			endif
 			" > ${customVimrcFile}.tmp
 			cat ${customVimrcFile} >> ${customVimrcFile}.tmp
 			mv ${customVimrcFile}.tmp ${customVimrcFile}
