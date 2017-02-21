@@ -40,6 +40,13 @@ function _roxma_vim_env_init()
 				# 解决 windows 乱码
 				source $VIMRUNTIME/delmenu.vim
 				source $VIMRUNTIME/menu.vim
+
+				if has('gui')
+					set guioptions-=m  \"remove menu bar
+					set guioptions-=T  \"remove toolbar
+					set guioptions-=r  \"remove right-hand scroll bar
+					set guioptions-=L  \"remove left-hand scroll bar
+				endif
 			endif
 			" > ${customVimrcFile}.tmp
 			cat ${customVimrcFile} >> ${customVimrcFile}.tmp
