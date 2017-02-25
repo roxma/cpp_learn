@@ -37,7 +37,7 @@ function _roxma_vim_env_init()
 				let l:dummp = 0
 			endtry
 			if has('win32') || has('win64')
-				# 解决 windows 乱码
+				\" 解决 windows 乱码
 				source $VIMRUNTIME/delmenu.vim
 				source $VIMRUNTIME/menu.vim
 
